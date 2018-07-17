@@ -14,8 +14,22 @@ const defaultState = {
   comments
 };
 
-const store = createStore(rootReducer, defaultState);
+// TODO: should use compose to support middleware with redux devtools.
+/* eslint-disable no-underscore-dangle */
+const store = createStore(
+  rootReducer,
+  defaultState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+/* eslint-enable */
 
 export const history = syncHistoryWithStore(browserHistory, store);
+
+if (module.hot) {
+  module.hot.accept("./reducers", () => {
+    const nextRootReducer = require("./reducers/index").default;
+    store.replaceReducer(nextRootReducer);
+  });
+}
 
 export default store;
