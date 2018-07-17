@@ -1,12 +1,12 @@
-import React from "react";
+import React, {Component} from "react";
 import { Link } from "react-router";
 
-class Main extends React.Component {
+class Main extends Component {
   render() {
     return (
       <div>
         <h1>
-          <Link to="/">Reduxsagram</Link>
+          <Link to="/">Reduxstagram</Link>
         </h1>
         {React.cloneElement(this.props.children, this.props)}
       </div>
